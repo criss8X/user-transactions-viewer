@@ -5,6 +5,7 @@ A simple application to view the transaction history of an Ethereum address.
 ## 🚀 Technologies Used
 
 - **Vite** - Development tool
+- **shadcn/ui** - Reusable UI components
 - **RainbowKit** - For wallet connection
 - **Wagmi** - Hooks for interacting with Ethereum
 - **Viem** - Lightweight Ethereum client
