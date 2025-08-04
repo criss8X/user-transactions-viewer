@@ -1,9 +1,8 @@
 import { AlertCircle, RefreshCw, Wallet } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/Button";
 import { QuickWalletInfo } from "@/components/QuickWalletInfo";
 import { TransactionsTable } from "@/components/TransactionsTable";
-import type { TransactionLog } from "@/lib/transactions";
+import { useQuery } from "@tanstack/react-query";
 import { getLastTransactions } from "@/lib/transactions";
 
 type UserLastTransactionsProps = {
@@ -11,36 +10,19 @@ type UserLastTransactionsProps = {
 };
 
 export function UserLastTransactions({ address }: UserLastTransactionsProps) {
-	const [transactions, setTransactions] = useState<TransactionLog[]>([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
-
-	const fetchTransactions = useCallback(async () => {
-		try {
-			setLoading(true);
-			const result = await getLastTransactions(address);
-
-			setTransactions(result);
-			setError(null);
-		} catch (err) {
-			console.error("Error fetching transactions:", err);
-
-			setError("Failed to load transactions. Please try again later.");
-		} finally {
-			setLoading(false);
-		}
-	}, [address]);
-
-	useEffect(() => {
-		fetchTransactions();
-	}, [fetchTransactions]);
+	const { data, isLoading, error, refetch } = useQuery({
+		queryKey: ["transactions", address],
+		initialData: [],
+		queryFn: () => getLastTransactions(address),
+		staleTime: 60 * 1000,
+	});
 
 	return (
 		<div className="mx-auto p-6 space-y-6 h-full">
 			<QuickWalletInfo />
 
 			<div className="max-w-7xl mx-auto">
-				{loading ? (
+				{isLoading ? (
 					<div className="flex flex-col items-center justify-center p-12 space-y-4 text-center">
 						<RefreshCw className="w-12 h-12 text-primary animate-spin" />
 
@@ -50,18 +32,12 @@ export function UserLastTransactions({ address }: UserLastTransactionsProps) {
 							Searching for your transaction history...
 						</p>
 					</div>
-				) : error ? (
-					<ErrorTransactionsFound
-						fetchTransactions={fetchTransactions}
-						error={error}
-					/>
-				) : transactions.length === 0 ? (
-					<NoTransactionsFound fetchTransactions={fetchTransactions} />
+				) : error !== null ? (
+					<ErrorTransactionsFound fetchTransactions={refetch} />
+				) : data.length === 0 ? (
+					<NoTransactionsFound fetchTransactions={refetch} />
 				) : (
-					<TransactionsTable
-						transactions={transactions}
-						onRefresh={fetchTransactions}
-					/>
+					<TransactionsTable transactions={data} onRefresh={refetch} />
 				)}
 			</div>
 		</div>
@@ -70,10 +46,8 @@ export function UserLastTransactions({ address }: UserLastTransactionsProps) {
 
 function ErrorTransactionsFound({
 	fetchTransactions,
-	error,
 }: {
 	fetchTransactions: () => void;
-	error: string;
 }) {
 	return (
 		<div className="flex flex-col items-center justify-center p-8 space-y-6 text-center bg-destructive/10 rounded-lg border border-destructive/20 max-w-2xl mx-auto">
@@ -83,7 +57,10 @@ function ErrorTransactionsFound({
 
 			<div className="space-y-2">
 				<h3 className="text-xl font-semibold">Something went wrong</h3>
-				<p className="text-muted-foreground">{error}</p>
+
+				<p className="text-muted-foreground">
+					Failed to load transactions. Please try again later.
+				</p>
 			</div>
 
 			<Button onClick={fetchTransactions}>

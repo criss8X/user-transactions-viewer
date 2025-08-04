@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -11,9 +10,7 @@ if (root === null) {
 }
 
 createRoot(root).render(
-	<StrictMode>
-		<Providers>
-			<App />
-		</Providers>
-	</StrictMode>,
+	<Providers>
+		<App />
+	</Providers>,
 );
