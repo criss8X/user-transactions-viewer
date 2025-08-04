@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "./Avatar";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Button } from "./Button";
 import { ChevronDown, LogOut, Network, User } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./Avatar";
+import { Button } from "./Button";
 
 export function QuickWalletInfo() {
 	return (

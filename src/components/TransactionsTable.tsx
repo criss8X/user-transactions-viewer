@@ -1,4 +1,9 @@
+import { formatDistanceToNow } from "date-fns";
+import { RefreshCw } from "lucide-react";
+import { formatEther } from "viem/utils";
 import type { TransactionLog } from "@/lib/transactions";
+import { Badge } from "./Badge";
+import { Button } from "./Button";
 import {
 	Table,
 	TableBody,
@@ -7,11 +12,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "./Table";
-import { formatDistanceToNow } from "date-fns";
-import { formatEther } from "viem/utils";
-import { Badge } from "./Badge";
-import { Button } from "./Button";
-import { RefreshCw } from "lucide-react";
 
 export function TransactionsTable({
 	transactions,

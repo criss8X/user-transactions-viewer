@@ -1,12 +1,12 @@
-import { mainnet, polygon, optimism, arbitrum, base } from "wagmi/chains";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import {
 	darkTheme,
 	getDefaultConfig,
 	lightTheme,
 	RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
+import { arbitrum, base, mainnet, optimism, polygon } from "wagmi/chains";
 import { ParticlesBackground } from "./components/ParticlesBackground.tsx";
 import { useIsDarkTheme } from "./hooks/useIsDarkTheme.ts";
 

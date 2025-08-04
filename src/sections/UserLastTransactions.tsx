@@ -1,10 +1,10 @@
-import { QuickWalletInfo } from "@/components/QuickWalletInfo";
-import { getLastTransactions } from "@/lib/transactions";
-import { useCallback, useEffect, useState } from "react";
-import type { TransactionLog } from "@/lib/transactions";
-import { TransactionsTable } from "@/components/TransactionsTable";
 import { AlertCircle, RefreshCw, Wallet } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/Button";
+import { QuickWalletInfo } from "@/components/QuickWalletInfo";
+import { TransactionsTable } from "@/components/TransactionsTable";
+import type { TransactionLog } from "@/lib/transactions";
+import { getLastTransactions } from "@/lib/transactions";
 
 type UserLastTransactionsProps = {
 	address: string;
