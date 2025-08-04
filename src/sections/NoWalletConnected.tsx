@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 
 export function NoWalletConnected() {
 	return (
-		<div className="flex flex-col items-center justify-center min-h-[70vh] p-6">
+		<main className="flex flex-col items-center justify-center min-h-[70vh] p-6">
 			<div className="w-full max-w-md text-center space-y-8">
 				<div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-primary/10 dark:bg-primary/20">
 					<Wallet className="w-12 h-12 text-primary" />
@@ -36,6 +36,6 @@ export function NoWalletConnected() {
 					</ConnectButton.Custom>
 				</div>
 			</div>
-		</div>
+		</main>
 	);
 }

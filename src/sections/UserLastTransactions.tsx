@@ -1,8 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
 import { AlertCircle, RefreshCw, Wallet } from "lucide-react";
 import { Button } from "@/components/Button";
 import { QuickWalletInfo } from "@/components/QuickWalletInfo";
 import { TransactionsTable } from "@/components/TransactionsTable";
-import { useQuery } from "@tanstack/react-query";
 import { getLastTransactions } from "@/lib/transactions";
 
 type UserLastTransactionsProps = {
@@ -18,7 +18,7 @@ export function UserLastTransactions({ address }: UserLastTransactionsProps) {
 	});
 
 	return (
-		<div className="mx-auto p-6 space-y-6 h-full">
+		<main className="mx-auto p-6 space-y-6 h-full">
 			<QuickWalletInfo />
 
 			<div className="max-w-7xl mx-auto">
@@ -40,7 +40,7 @@ export function UserLastTransactions({ address }: UserLastTransactionsProps) {
 					<TransactionsTable transactions={data} onRefresh={refetch} />
 				)}
 			</div>
-		</div>
+		</main>
 	);
 }
 
